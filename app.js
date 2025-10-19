@@ -7,8 +7,13 @@ const session = require('express-session');
 const expressError = require('./utils/ExpressError');
 const campRoutes = require('./routes/campground.js');
 const reviewRoutes = require('./routes/review.js');
+const userRoutes = require('./routes/user.js');
 const flash = require('connect-flash');
+const passport = require('passport');
+const localstrategy = require('passport-local');
+const User = require('./models/user.js');
 const app = express();
+
 
 app.engine('ejs', ejsMate);
 app.set('view engine', 'ejs');
@@ -31,7 +36,15 @@ app.use(methodOverride('_method'));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(flash());
 
+
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new localstrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
 app.use((req, res, next) => {
+    res.locals.loggedInUser = req.user;
     res.locals.success = req.flash('Success');
     res.locals.error = req.flash('error');
     next();
@@ -39,6 +52,9 @@ app.use((req, res, next) => {
 
 app.use('/campgrounds', campRoutes);
 app.use('/campgrounds/:id/review', reviewRoutes);
+app.use('/', userRoutes);
+
+
 
 mongoose.connect('mongodb://localhost:27017/yelp-camp');
 const db = mongoose.connection;

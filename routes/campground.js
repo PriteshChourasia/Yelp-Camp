@@ -4,6 +4,7 @@ const campground = require('../models/campground');
 const catchAsync = require('../utils/CatchAsync');
 const { campgroundSchema } = require('../schemas.js');
 const ExpressError = require('../utils/ExpressError.js');
+const { isLoggedIn } = require('../middelware.js');
 
 const validateCampForm = (req, res, next) => {
     const body = req.body;
@@ -17,7 +18,7 @@ const validateCampForm = (req, res, next) => {
     }
 }
 
-router.get('/:id/edit', catchAsync(async (req, res) => {
+router.get('/:id/edit', isLoggedIn, catchAsync(async (req, res) => {
     const { id } = req.params;
     const camp = await campground.findById(id);
     if (!camp) {
@@ -27,7 +28,7 @@ router.get('/:id/edit', catchAsync(async (req, res) => {
     res.render('campgrounds/edit', { camp });
 }));
 
-router.get('/new', catchAsync(async (req, res) => {
+router.get('/new', isLoggedIn, catchAsync(async (req, res) => {
     res.render('campgrounds/new');
 }));
 
@@ -46,21 +47,21 @@ router.get('/:id', catchAsync(async (req, res) => {
     res.render('campgrounds/show', { camp });
 }));
 
-router.post('/', validateCampForm, catchAsync(async (req, res, next) => {
+router.post('/', isLoggedIn, validateCampForm, catchAsync(async (req, res, next) => {
     const camp = new campground(req.body.campground);
     await camp.save();
     req.flash('Success', 'Successfully created campground');
     res.redirect(`/campgrounds/${camp._id}`);
 }));
 
-router.put('/:id', validateCampForm, catchAsync(async (req, res) => {
+router.put('/:id', isLoggedIn, validateCampForm, catchAsync(async (req, res) => {
     const { id } = req.params;
     const camp = await campground.findByIdAndUpdate(id, { ...req.body.campground });
     req.flash('Success', 'Successfully updated campground');
     res.redirect(`/campgrounds/${id}`);
 }));
 
-router.delete('/:id', catchAsync(async (req, res) => {
+router.delete('/:id', isLoggedIn, catchAsync(async (req, res) => {
     const { id } = req.params;
     await campground.findByIdAndDelete(id);
     req.flash('Success', 'Successfully deleted campground');
