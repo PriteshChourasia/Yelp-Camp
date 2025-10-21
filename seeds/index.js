@@ -22,6 +22,7 @@ const SeedDb = async () => {
         const randPla = rand(seed.places);
         const randCit = rand(cities);
         const camp = new Campground({
+            author: '68f71094059b4654c4936181',
             title: `${seed.descriptors[randDes]} ${seed.places[randPla]}`,
             location: `${cities[randCit].city},  ${cities[randCit].state}`,
             description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae ratione vero veritatis quibusdam quidem quo voluptatibus dignissimos atque doloremque quam! In deserunt illo aut voluptates iste hic eligendi explicabo aperiam? Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae ratione vero veritatis quibusdam quidem quo voluptatibus dignissimos atque do',

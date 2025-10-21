@@ -2,23 +2,10 @@ const express = require('express');
 const router = express.Router({ mergeParams: true });
 const campground = require('../models/campground');
 const catchAsync = require('../utils/CatchAsync');
-const { campgroundSchema } = require('../schemas.js');
-const ExpressError = require('../utils/ExpressError.js');
-const { isLoggedIn } = require('../middelware.js');
 
-const validateCampForm = (req, res, next) => {
-    const body = req.body;
-    const { error } = campgroundSchema.validate(body);
-    if (error) {
-        const msg = error.details.map(el => el.message).join(',')
-        throw new ExpressError(msg, 400)
-    }
-    else {
-        next();
-    }
-}
+const { isLoggedIn, validateCampForm, isAuthor } = require('../middleware.js');
 
-router.get('/:id/edit', isLoggedIn, catchAsync(async (req, res) => {
+router.get('/:id/edit', isLoggedIn, isAuthor, catchAsync(async (req, res) => {
     const { id } = req.params;
     const camp = await campground.findById(id);
     if (!camp) {
@@ -39,7 +26,12 @@ router.get('/', catchAsync(async (req, res) => {
 
 router.get('/:id', catchAsync(async (req, res) => {
     const { id } = req.params;
-    const camp = await campground.findById(id).populate('reviews');
+    const camp = await campground.findById(id).populate({
+        path: 'reviews',
+        populate: {
+            path: 'author'
+        }
+    }).populate('author');
     if (!camp) {
         req.flash('error', 'Campground not found');
         return res.redirect('/campgrounds')
@@ -49,12 +41,13 @@ router.get('/:id', catchAsync(async (req, res) => {
 
 router.post('/', isLoggedIn, validateCampForm, catchAsync(async (req, res, next) => {
     const camp = new campground(req.body.campground);
+    camp.author = req.user._id;
     await camp.save();
     req.flash('Success', 'Successfully created campground');
     res.redirect(`/campgrounds/${camp._id}`);
 }));
 
-router.put('/:id', isLoggedIn, validateCampForm, catchAsync(async (req, res) => {
+router.put('/:id', isLoggedIn, isAuthor, validateCampForm, catchAsync(async (req, res) => {
     const { id } = req.params;
     const camp = await campground.findByIdAndUpdate(id, { ...req.body.campground });
     req.flash('Success', 'Successfully updated campground');
