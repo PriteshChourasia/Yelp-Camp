@@ -26,8 +26,25 @@ const SeedDb = async () => {
             title: `${seed.descriptors[randDes]} ${seed.places[randPla]}`,
             location: `${cities[randCit].city},  ${cities[randCit].state}`,
             description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae ratione vero veritatis quibusdam quidem quo voluptatibus dignissimos atque doloremque quam! In deserunt illo aut voluptates iste hic eligendi explicabo aperiam? Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae ratione vero veritatis quibusdam quidem quo voluptatibus dignissimos atque do',
-            image: `https://picsum.photos/400?random=${Math.random()}`,
-            price
+            price,
+            images: [
+                {
+                    url: 'https://res.cloudinary.com/dsktz2itx/image/upload/v1761373716/YelpCamp/epp0hzpc2cowtgcqm7z0.jpg',
+                    filename: 'YelpCamp/epp0hzpc2cowtgcqm7z0'
+                },
+                {
+                    url: 'https://res.cloudinary.com/dsktz2itx/image/upload/v1761373717/YelpCamp/fyn2jx7kbki0klgdoj0b.jpg',
+                    filename: 'YelpCamp/fyn2jx7kbki0klgdoj0b'
+                },
+                {
+                    url: 'https://res.cloudinary.com/dsktz2itx/image/upload/v1761373718/YelpCamp/lx7xnubzwmodu2krprpv.jpg',
+                    filename: 'YelpCamp/lx7xnubzwmodu2krprpv'
+                },
+                {
+                    url: 'https://res.cloudinary.com/dsktz2itx/image/upload/v1761373728/YelpCamp/wj21ofbapuifyr5dytzr.jpg',
+                    filename: 'YelpCamp/wj21ofbapuifyr5dytzr'
+                }
+            ]
         })
         await camp.save();
     }
