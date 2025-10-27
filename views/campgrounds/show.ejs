@@ -57,6 +57,7 @@
             </div>
         </div>
         <div class="col-6">
+            <div id="map" style="width: 100%; height: 300px;"></div>
             <% if(loggedInUser) {%>
                 <div class="m-auto">
                     <h2>Leave a review</h2>
@@ -114,3 +115,9 @@
 
         </div>
     </div>
+    <script>
+        const maptilerApiKey = '<%= process.env.MAPTILER_API_KEY %>';
+        const camp = <%-JSON.stringify(camp)%>;
+    </script>
+
+    <script src="/javascripts/showPageMap.js"></script>

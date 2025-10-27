@@ -17,6 +17,7 @@ db.once("open", () => {
 const SeedDb = async () => {
     await Campground.deleteMany({});
     for (let i = 0; i < 50; i++) {
+        const random1000 = Math.floor(Math.random() * 1000);
         const price = Math.floor(Math.random() * 20) + 10;
         const randDes = rand(seed.descriptors);
         const randPla = rand(seed.places);
@@ -25,6 +26,13 @@ const SeedDb = async () => {
             author: '68f71094059b4654c4936181',
             title: `${seed.descriptors[randDes]} ${seed.places[randPla]}`,
             location: `${cities[randCit].city},  ${cities[randCit].state}`,
+            geometry: {
+                type: "Point",
+                coordinates: [
+                    cities[random1000].longitude,
+                    cities[random1000].latitude,
+                ]
+            },
             description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae ratione vero veritatis quibusdam quidem quo voluptatibus dignissimos atque doloremque quam! In deserunt illo aut voluptates iste hic eligendi explicabo aperiam? Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae ratione vero veritatis quibusdam quidem quo voluptatibus dignissimos atque do',
             price,
             images: [
