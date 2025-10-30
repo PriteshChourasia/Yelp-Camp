@@ -1,12 +1,17 @@
 <% layout('layouts/boilerplate') %>
 
+<div class="container d-flex justify-content-center align-items-center mb-4">
     <div class="row">
-        <h1 class="text-center mb-5">Sign Up</h1>
-        <div class="col-6 offset-3">
-            <form action="/register" method="post" class="mb-5 validated-form" novalidate>
+        <div class="col-md-12 ">
+            <div class="card shadow">
+                <img src="https://res.cloudinary.com/dsktz2itx/image/upload/w_500,ar_1/v1761373716/YelpCamp/epp0hzpc2cowtgcqm7z0.jpg"
+                    alt="" class="card-img-top" />
+               <div class="card-body">
+                <h5 class="card-title">Register</h5>
+                <form action="/register" method="post" class="mb-5 validated-form" novalidate>
                 <div class="mb-3">
                     <label for="username" class="form-label">User Name</label>
-                    <input type="text" class="form-control" id="username" name="username" required>
+                    <input type="text" class="form-control" id="username" name="username" autofocus required>
                     <div class="valid-feedback">
                         Looks good!
                     </div>
@@ -25,8 +30,11 @@
                         Looks good!
                     </div>
                 </div>
-                <button type=" submit" class="btn btn-success">Register</button>
+                <button type=" submit" class="btn btn-success w-100">Register</button>
             </form>
+            </div>
+            </div>
         </div>
-
     </div>
+</div>
+    
