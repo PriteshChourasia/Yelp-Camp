@@ -5,7 +5,12 @@
         <div class="container card mb-3 ">
             <div class=" row">
                 <div class="col-md-3">
-                    <img src="<%=camp.images[0].url%>" class="img-fluid rounded-start">
+                    <%if(camp.images.length) {%>
+                    <img  src="<%=camp.images[0].url%>" class="img-fluid rounded-start" crossorigin="anonymous">
+                    <% }else {%>
+                        <img class="img-fluid" alt=""
+                    src="https://res.cloudinary.com/dsktz2itx/image/upload/v1761373716/YelpCamp/epp0hzpc2cowtgcqm7z0.jpg" crossorigin="anonymous">
+                <% } %>
                 </div>
                 <div class="col-md-8">
                     <div class="card-body">
