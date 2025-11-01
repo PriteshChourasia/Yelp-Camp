@@ -84,6 +84,7 @@ const styleSrcUrls = [
 const connectSrcUrls = [
     "https://api.maptiler.com/",
     "https://stackpath.bootstrapcdn.com/",
+    "https://cdn.jsdelivr.net/npm/",
 ];
 
 const fontSrcUrls = [
