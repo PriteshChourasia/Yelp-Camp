@@ -65,7 +65,7 @@ app.use(flash());
 app.use(helmet());
 
 const scriptSrcUrls = [
-    "https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/",
+    "https://cdn.jsdelivr.net/npm/",
     "https://stackpath.bootstrapcdn.com/",
     "https://kit.fontawesome.com/",
     "https://cdnjs.cloudflare.com/",
@@ -73,7 +73,7 @@ const scriptSrcUrls = [
 ];
 
 const styleSrcUrls = [
-    "https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/",
+    "https://cdn.jsdelivr.net/npm/",
     "https://kit-free.fontawesome.com/",
     "https://stackpath.bootstrapcdn.com/",
     "https://fonts.googleapis.com/",
@@ -83,11 +83,12 @@ const styleSrcUrls = [
 
 const connectSrcUrls = [
     "https://api.maptiler.com/",
+    "https://stackpath.bootstrapcdn.com/",
 ];
 
 const fontSrcUrls = [
     "https://fonts.gstatic.com/",
-    "https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/",
+    "https://cdn.jsdelivr.net/npm/",
 ];
 
 app.use(
