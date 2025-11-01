@@ -30,12 +30,13 @@ app.set('views', path.join(__dirname, 'views'));
 
 // const dbUrl = 'mongodb://localhost:27017/yelp-camp'
 const dbUrl = process.env.DB_URL;
+const secret = process.env.SECRET || 'thisshouldbeabettersecret!';
 
 const store = MongoStore.create({
     mongoUrl: dbUrl,
     touchAfter: 24 * 60 * 60,
     crypto: {
-        secret: 'thisshouldbeabettersecret!'
+        secret: secret
     }
 });
 
@@ -44,7 +45,7 @@ const store = MongoStore.create({
 app.use(session({
     store,
     name: 'session',
-    secret: 'thisshouldbeagoodsecret',
+    secret: secret,
     resave: false,
     saveUninitialized: true,
     cookie: {
